@@ -1,0 +1,19 @@
+{
+  "name": "imagine-node",
+  "subdomain": "imagine-beta",
+  "scripts": {
+    "start": "server.js"
+  },
+  "version": "0.0.0-1",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "body-parser": "latest",
+    "express": "latest",
+    "method-override": "latest",
+    "mongoose": "latest",
+    "node-restful": "latest",
+    "nodemon": "^1.2.1"
+  }
+}
