@@ -9,12 +9,10 @@
     "node": "0.10.x"
   },
   "dependencies": {
-    "body-parser": "latest",
+    "body-parser": "^1.10.0",
     "express": "latest",
     "lodash": "^2.4.1",
-    "method-override": "latest",
     "mongoose": "latest",
-    "node-restful": "latest",
-    "nodemon": "^1.2.1"
+    "node-restful": "^0.1.17"
   }
 }

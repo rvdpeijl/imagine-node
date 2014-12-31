@@ -9,9 +9,11 @@ var Category = require('../models/category');
 
 // Routes
 Product.methods(['get', 'put', 'post', 'delete']);
-Product.register(router, '/products');
 Category.methods(['get', 'put', 'post', 'delete']);
+
+Product.register(router, '/products');
 Category.register(router, '/categories');
+
 
 // Return router
 module.exports = router;
