@@ -10,29 +10,31 @@
 		</tr>
 		<tr ng-repeat="item in prod.products">
 			<td width="100">
-				<span ng-hide="prod.editEnabled.id === item._id">{{ item.name }}</span>
-				<input type="text" ng-model="item.name" ng-show="prod.editEnabled.id === item._id">
+				<span ng-hide="prod.selectedProduct.id === item._id">{{ item.name }}</span>
+				<input type="text" ng-model="item.name" ng-show="prod.selectedProduct.id === item._id">
 			</td>
 			<td width="100">
-				<span ng-hide="prod.editEnabled.id === item._id">{{ item.description }}</span>
-				<input type="text" ng-model="item.description" ng-show="prod.editEnabled.id === item._id">
+				<span ng-hide="prod.selectedProduct.id === item._id">{{ item.description }}</span>
+				<input type="text" ng-model="item.description" ng-show="prod.selectedProduct.id === item._id">
 			</td>
 			<td>
-				<!-- <select ng-show="prod.editEnabled.id === item._id" ng-model="prod.temp" ng-options="category.name for category in prod.categories track by category._id"> -->
+				<div ng-show="category._id === item.categoryId && prod.selectedProduct.id !== item._id" ng-repeat="category in prod.categories">{{ category.name }}</div>
 
-				<span ng-hide="prod.editEnabled.id === item._id">{{ prod.categories[0].name }}</span>
-
-				<select ng-show="prod.editEnabled.id === item._id" ng-model="item.categoryId">
-			    	<option ng-repeat="category in prod.categories" value="{{category._id}}">{{category.name}}</option>
-			    </select>
+			    <select ng-model="item.categoryId" ng-show="prod.selectedProduct.id === item._id">
+				    <option ng-selected="{{ category._id == item.categoryId}}"
+				            ng-repeat="category in prod.categories"
+				            value="{{category._id}}">
+				      {{category.name}}
+				    </option>
+				</select>
 			</td>
-			<td><a href="#" ng-click="prod.destroyProduct(item)">delete</a></td>
-			<td ng-hide="prod.editEnabled.id === item._id">
+			<td ng-hide="prod.selectedProduct.id === item._id">
 				<a href="#" ng-click="prod.editProduct(item)">edit</a>
 			</td>
-			<td ng-show="prod.editEnabled.id === item._id">
+			<td ng-show="prod.selectedProduct.id === item._id">
 				<a href="#" ng-click="prod.updateProduct(item)">done editing</a>
 			</td>
+			<td><a href="#" ng-click="prod.destroyProduct(item)">delete</a></td>
 		</tr>
 	</table>
 	<br>
@@ -41,24 +43,6 @@
 		<input size="30" name="name" ng-model="prod.product.name" type="text" required> <br>
 		Description: <br>
 		<input size="30" name="description" ng-model="prod.product.description" type="text" required> <br>
-		<button>Submit</button>
-	</form>
-	<hr>
-	<h2>Categories</h2>
-	<table>
-		<tr align="left">
-			<th>Name</th>
-		</tr>
-		<tr ng-repeat="category in prod.categories">
-			<td width="100">{{ category.name }}</td>
-			<td width="100">{{ category.description }}</td>
-			<td><a href="#" ng-click="prod.destroyCategory(category)">delete</a></td>
-		</tr>
-	</table>
-	<br>
-	<form ng-submit="prod.createCategory(prod.category)" novalidate>
-		Name: <br>
-		<input size="30" name="name" ng-model="prod.category.name" type="text" required> <br>
 		<button>Submit</button>
 	</form>
 	<hr>

@@ -1,0 +1,29 @@
+<div>
+<h2>Categories</h2>
+	<table>
+		<tr align="left">
+			<th>Name</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="category in cat.categories">
+			<td width="100">
+				<span ng-hide="cat.selectedCategory.id === category._id">{{ category.name }}</span>
+				<input type="text" ng-model="category.name" ng-show="cat.selectedCategory.id === category._id">
+			</td>
+			<td ng-hide="cat.selectedCategory.id === category._id">
+				<a href="#" ng-click="cat.editCategory(category)">edit</a>
+			</td>
+			<td ng-show="cat.selectedCategory.id === category._id">
+				<a href="#" ng-click="cat.updateCategory(category)">done editing</a>
+			</td>
+			<td><a href="#" ng-click="cat.destroyCategory(category)">delete</a></td>
+		</tr>
+	</table>
+	<br>
+	<form ng-submit="cat.createCategory(cat.category)" novalidate>
+		Name: <br>
+		<input size="30" name="name" ng-model="cat.category.name" type="text" required> <br>
+		<button>Submit</button>
+	</form>
+</div>

@@ -13,18 +13,16 @@
         var vm = this;
         vm.products = [];
         vm.categories = [];
-        vm.editEnabled = {
-            id: null
+
+        vm.selectedProduct = {
+            id: null,
+            categoryId: null
         };
         
         vm.product = {
             name: '', 
             categoryId: null,
             description: ''
-        };
-
-        vm.category = {
-            name: ''
         };
 
         activateProducts();
@@ -57,14 +55,18 @@
         }
 
         vm.editProduct = function(product) {
-            vm.editEnabled.id = product._id;
+            vm.selectedProduct.id = product._id;
+            var category = _.where(vm.categories, { '_id': product.categoryId });
+            vm.selectedProduct.categoryId = category[0]._id;
         }
 
         vm.updateProduct = function(product) {
+            console.log(product);
             return Products.update(product).then(function(data) {
                 console.log('Updated product ID: ' + data._id);
+                vm.selectedProduct.id = null;
+                vm.selectedProduct.categoryId = null;
                 activateProducts();
-                vm.editEnabled.id = null;
             });
         }
 
@@ -72,25 +74,6 @@
             return Products.destroy(product).then(function(data) {
                 console.log('Destroyed product ID: ' + data._id);
                 activateProducts();
-            });
-        }
-
-        vm.createCategory = function(category) {
-            var validator = Validator.validate(category, Categories.rules);
-            if (validator.valid){
-                return Categories.create(category).then(function() {
-                    vm.category = {};
-                    activateCategories();
-                });
-            } else {
-                console.log(validator.errors);
-            }
-        }
-
-        vm.destroyCategory = function(category) {
-            return Categories.destroy(category).then(function(data) {
-                console.log('Destroyed category ID: ' + data._id);
-                activateCategories();
             });
         }
     }

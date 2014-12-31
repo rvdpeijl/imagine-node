@@ -13,6 +13,7 @@
             getCategories: getCategories,
             create: create,
             destroy: destroy,
+            update: update,
             rules: {
                 'name': {
                     'required': {
@@ -51,6 +52,20 @@
 
             function createCategoryFailed(error) {
                 console.log('Error: ' + error);
+            }
+        }
+
+        function update(category) {
+            return $http.put('/api/categories/' + category._id, category)
+                .then(updateCategoryComplete)
+                .catch(updateCategoryFailed);
+
+            function updateCategoryComplete(response) {
+                return response.data;
+            }
+
+            function updateCategoryFailed(error) {
+                console.log('Error: ' + error.data);
             }
         }
 
