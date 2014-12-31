@@ -6,7 +6,7 @@ var mongoose 	= restful.mongoose;
 // Schema
 var productSchema = new mongoose.Schema({
 	name: String,
-	categoryId: Number,
+	categoryId: String,
 	description: String
 });
 

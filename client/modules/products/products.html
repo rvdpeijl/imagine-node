@@ -20,6 +20,8 @@
 			<td>
 				<!-- <select ng-show="prod.editEnabled.id === item._id" ng-model="prod.temp" ng-options="category.name for category in prod.categories track by category._id"> -->
 
+				<span ng-hide="prod.editEnabled.id === item._id">{{ prod.categories[0].name }}</span>
+
 				<select ng-show="prod.editEnabled.id === item._id" ng-model="item.categoryId">
 			    	<option ng-repeat="category in prod.categories" value="{{category._id}}">{{category.name}}</option>
 			    </select>

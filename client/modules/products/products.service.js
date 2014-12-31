@@ -62,6 +62,7 @@
         }
 
         function update(product) {
+            console.log(product);
             return $http.put('/api/products/' + product._id, product)
                 .then(updateProductComplete)
                 .catch(updateProductFailed);

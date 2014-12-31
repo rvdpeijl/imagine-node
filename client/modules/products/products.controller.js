@@ -61,7 +61,6 @@
         }
 
         vm.updateProduct = function(product) {
-            console.log(product);
             return Products.update(product).then(function(data) {
                 console.log('Updated product ID: ' + data._id);
                 activateProducts();
