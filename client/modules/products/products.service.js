@@ -10,30 +10,16 @@
 
     function Products($http) {
         var service = {
-            getProducts: getProducts,
+            findAll: findAll,
             create: create,
-            update: update,
-            destroy: destroy,
-            rules: {
-                'name': {
-                    'required': {
-                        'value': true,
-                        'message': 'Name is required'
-                    }
-                },
-                'description': {
-                    'required': {
-                        'value': true,
-                        'message': 'Description is required'
-                    }
-                }
-            }
+            save: save,
+            destroy: destroy
         };
         return service;
 
         ////////////////
 
-        function getProducts() {
+        function findAll() {
             return $http.get('/api/products')
                 .then(getProductsComplete)
                 .catch(getProductsFailed);
@@ -53,25 +39,25 @@
                 .catch(createProductFailed);
 
             function createProductComplete(response) {
-                return response.data;
+                return response;
             }
 
-            function createProductFailed(error) {
-                console.log('Error: ' + error);
+            function createProductFailed(response) {
+                return response;
             }
         }
 
-        function update(product) {
+        function save(product) {
             return $http.put('/api/products/' + product._id, product)
                 .then(updateProductComplete)
                 .catch(updateProductFailed);
 
             function updateProductComplete(response) {
-                return response.data;
+                return response;
             }
 
-            function updateProductFailed(error) {
-                console.log('Error: ' + error.data);
+            function updateProductFailed(response) {
+                return response;
             }
         }
 
@@ -80,12 +66,12 @@
                 .then(deleteProductComplete)
                 .catch(deleteProductFailed);
 
-            function deleteProductComplete() {
-                return product;
+            function deleteProductComplete(response) {
+                return response;
             }
 
-            function deleteProductFailed(error) {
-                console.log('Error: ' + error.data);
+            function deleteProductFailed(response) {
+                return response;
             }
         }
     }

@@ -1,0 +1,56 @@
+<div>
+	
+	<h2>Accounts</h2>
+	
+	<table>
+		<tr>
+			<th>Username</th>
+			<th>Group</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="account in acc.accounts">
+			<td>
+				<p ng-hide="acc.editing.id === account._id">{{ account.username }}</p>
+				<input type="text" ng-model="account.username" ng-show="acc.editing.id === account._id">
+			</td>
+			<td>
+				<div ng-show="group._id === account.groupId && acc.editing.id !== account._id" ng-repeat="group in acc.groups">{{ group.name }}</div>
+
+				<select ng-model="account.groupId" ng-show="acc.editing.id === account._id">
+				    <option ng-selected="{{ group._id == account.groupId}}"
+				            ng-repeat="group in acc.groups"
+				            value="{{group._id}}">
+				      {{group.name}}
+				    </option>
+				</select>
+			</td>
+			<td>
+				<a href="#" ng-click="acc.enableEdit(account)" ng-hide="acc.editing.id === account._id">edit</a>
+				<a href="#" ng-click="acc.saveAccount(account)" ng-show="acc.editing.id === account._id">save</a>
+			</td>
+			<td><a href="#" ng-click="acc.deleteAccount(account)">delete</a></td>
+		</tr>
+	</table>
+	
+	<hr>
+
+	<div>
+		<p>New account:</p>
+		<form ng-submit="acc.createAccount(acc.account)">
+			<p>Username</p>
+			<input type="text" ng-model="acc.account.username">
+			<p>Password</p>
+			<input type="text" ng-model="acc.account.password">
+			<p>Group</p>
+			<select ng-model="acc.account.groupId">
+			    <option ng-repeat="group in acc.groups"
+			            value="{{group._id}}">
+			      {{group.name}}
+			    </option>
+			</select>
+			<button>REGISTER</button>
+		</form>
+	</div>
+
+</div>

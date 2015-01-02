@@ -1,0 +1,30 @@
+<div>
+	<h2>{{ groups.title }}</h2>
+
+	<table>
+		<tr>
+			<th>Name</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="group in groups.groups">
+			<td width="100">
+				<span ng-hide="groups.editing.id === group._id">{{ group.name }}</span>
+				<input type="text" ng-model="group.name" ng-show="groups.editing.id === group._id">
+			</td>
+			<td>
+				<a href="#" ng-click="groups.enableEdit(group)" ng-hide="groups.editing.id === group._id">edit</a>
+				<a href="#" ng-click="groups.saveGroup(group)" ng-show="groups.editing.id === group._id">save</a>
+			</td>
+			<td><a href="#" ng-click="groups.destroyGroup(group)">delete</a></td>
+		</tr>
+	</table>
+	
+	<hr>
+	
+	<form ng-submit="groups.createGroup(groups.group)">
+		<p>Name</p>
+		<input type="text" ng-model="groups.group.name">
+		<button>Submit</button>
+	</form>
+</div>

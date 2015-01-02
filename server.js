@@ -26,7 +26,6 @@ app.use(morgan('dev'));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // Routes
 app.use('/api', require('./server/routes/api'));
 app.use('/client', express.static(__dirname + '/client'));
@@ -45,5 +44,6 @@ app.get('*', function(req, res) {
 });
 
 // Start server
-app.listen(3000);
-console.log('API is running on port 3000');
+app.listen(3000, function() {
+	console.log('API is running on port 3000');
+});

@@ -4,13 +4,26 @@
 	<meta charset="UTF-8">
 	<base href="/">
 	<title>Hello World</title>
+	<link rel="stylesheet" href="/client/styles/main.css">
 </head>
 <body ng-app="app">
+	
+	<div class="wrapper">
+		<div class="popup" ng-show="$root.popup.visible">
+			<div class="panel">
+				<p class="message">{{ $root.popup.message }}</p>
+			</div>
+		</div>
+	</div>
+
 	<div>
 		<ul>
 			<li><a href="/">Home</a></li>
 			<li><a href="/products">Products</a></li>
 			<li><a href="/categories">Categories</a></li>
+			<li><a href="/groups">Groups</a></li>
+			<li><a href="/accounts">Accounts</a></li>
+			<li><a href="#" ng-click="$root.logout()">Logout</a></li>
 		</ul>
 	</div>
 
@@ -26,12 +39,28 @@
 	<script type="text/javascript" src="/client/modules/app.module.js"></script>
 	<script type="text/javascript" src="/client/modules/app.routes.js"></script>
 
+	<!-- Home -->
 	<script type="text/javascript" src="/client/modules/home/home.controller.js"></script>
+	<!-- Validator -->
 	<script type="text/javascript" src="/client/modules/validator/validator.service.js"></script>
+	<!-- Popup -->
+	<script type="text/javascript" src="/client/modules/popup/popup.service.js"></script>
+	<!-- Products -->
 	<script type="text/javascript" src="/client/modules/products/products.service.js"></script>
 	<script type="text/javascript" src="/client/modules/products/products.controller.js"></script>
+	<!-- Categories -->
 	<script type="text/javascript" src="/client/modules/categories/categories.service.js"></script>
 	<script type="text/javascript" src="/client/modules/categories/categories.controller.js"></script>
+	<!-- Auth -->
+	<script type="text/javascript" src="/client/modules/auth/auth.service.js"></script>
+	<!-- Accounts -->
+	<script type="text/javascript" src="/client/modules/accounts/accounts.service.js"></script>
+	<script type="text/javascript" src="/client/modules/accounts/accounts.controller.js"></script>
+	<!-- Groups -->
+	<script type="text/javascript" src="/client/modules/groups/groups.service.js"></script>
+	<script type="text/javascript" src="/client/modules/groups/groups.controller.js"></script>
+	<!-- Login -->
+	<script type="text/javascript" src="/client/modules/login/login.controller.js"></script>
 	
 </body>
 </html>
