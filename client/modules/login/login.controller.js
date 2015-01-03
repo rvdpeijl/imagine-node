@@ -29,7 +29,7 @@
         			resetCredentials();
         		} else {
         			Popup.flash('Login succesful');
-        			$rootScope.user = data;
+        			$rootScope.account = data;
         			$location.path('/');
         		}
         	});

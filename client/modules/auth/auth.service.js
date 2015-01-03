@@ -30,5 +30,24 @@
                 return error;
             }
         }
+
+        /**
+            
+            TODO:
+            - permissions aan groups model toevoegen | groups = { name: '', permissions: [{1}, {2}] };
+        
+        **/
+
+        function getPermissions(module, account) {
+            var permissions = {
+                readable: false,
+                writable: false
+            };
+
+            return permissions;
+            // in scope:
+            // ---------
+            // if (account.permissions.readable || account.permissions.writable) 
+        }
     }
 })();
