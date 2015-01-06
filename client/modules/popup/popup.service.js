@@ -10,7 +10,8 @@
         var service = {
             show: show,
             hide: hide,
-            flash: flash
+            flash: flash,
+            errors: errors
         };
         return service;
 
@@ -30,7 +31,13 @@
         	show(message);
         	$timeout(function() {
         		hide();
-        	}, 1000);
+        	}, 2000);
+        }
+
+        function errors(object) {
+            if (object.data.code === 11000) {
+                flash('Duplicate key: one or more keys already exist in database');
+            };
         }
     }
 })();

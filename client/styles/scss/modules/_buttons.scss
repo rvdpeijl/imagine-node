@@ -1,0 +1,43 @@
+.btn {
+	padding: 10px 20px;
+	background-color: $blue;
+	color: $white;
+	margin-bottom: 5px;
+	display: inline-block;
+	border-radius: $rad;
+	font-size: 12px;
+	text-align: center;
+
+	border-bottom: 2px solid darken($blue, 5%);
+
+	&:hover {
+		background-color: $lightblue;
+		border-bottom: 2px solid darken($lightblue, 5%);
+		color: $white;
+	}
+
+	&.small {
+		padding: 5px 10px;
+		font-size: 12px;
+	}
+
+	&.danger {
+		background-color: $red;
+		border-bottom: 2px solid darken($red, 5%);
+
+		&:hover {
+			background-color: $lightred;
+			border-bottom: 2px solid darken($lightred, 5%);
+		}
+	}
+
+	&.success {
+		background-color: $green;
+		border-bottom: 2px solid darken($green, 5%);
+
+		&:hover {
+			background-color: $lightgreen;
+			border-bottom: 2px solid darken($lightgreen, 5%);
+		}
+	}
+}

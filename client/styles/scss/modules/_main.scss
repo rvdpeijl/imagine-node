@@ -1,0 +1,54 @@
+html {
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	background-color: $lightgray;
+	color: $darkgray;
+	font-size: 14px;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+.content {
+	position: relative;
+    width: 100%;
+    height: 100%;
+	background-color: $lightgray;
+}
+
+.main {
+	position: relative;
+    margin-left: 170px;
+    padding: $pad;
+}
+
+a {
+	color: $blue;
+	text-decoration: none;
+
+	&:hover {
+		color: $darkblue;
+	}
+}
+
+input {
+	border-radius: $rad;
+	border: 1px solid $gray;
+
+	&[type="text"] {
+		padding: 3px;
+	}
+
+	&[type="number"] {
+		width: 50px;
+		
+		padding: 3px;
+	}
+}

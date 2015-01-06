@@ -6,71 +6,75 @@
         .factory('Products', Products);
 
     /* @ngInject */
-    Products.$inject = ['$http'];
+    Products.$inject = ['$rootScope', '$http', 'Logger'];
 
-    function Products($http) {
+    function Products($rootScope, $http, Logger) {
+        
         var service = {
             findAll: findAll,
             create: create,
             save: save,
             destroy: destroy
         };
+
         return service;
 
         ////////////////
 
         function findAll() {
             return $http.get('/api/products')
-                .then(getProductsComplete)
-                .catch(getProductsFailed);
+                .then(complete)
+                .catch(failed);
 
-            function getProductsComplete(response) {
+            function complete(response) {
+                $rootScope.products = response.data;
                 return response.data;
             }
 
-            function getProductsFailed(error) {
+            function failed(error) {
                 console.log('Error: ' + error);
             }
         }
 
         function create(product) {
             return $http.post('/api/products', product)
-                .then(createProductComplete)
-                .catch(createProductFailed);
+                .then(complete)
+                .catch(failed);
 
-            function createProductComplete(response) {
+            function complete(response) {
                 return response;
             }
 
-            function createProductFailed(response) {
+            function failed(response) {
                 return response;
             }
         }
 
         function save(product) {
             return $http.put('/api/products/' + product._id, product)
-                .then(updateProductComplete)
-                .catch(updateProductFailed);
+                .then(complete)
+                .catch(failed);
 
-            function updateProductComplete(response) {
+            function complete(response) {
+                Logger.edit('product', response.data);
                 return response;
             }
 
-            function updateProductFailed(response) {
+            function failed(response) {
                 return response;
             }
         }
 
         function destroy(product) {
             return $http.delete('/api/products/' + product._id)
-                .then(deleteProductComplete)
-                .catch(deleteProductFailed);
+                .then(complete)
+                .catch(failed);
 
-            function deleteProductComplete(response) {
+            function complete(response) {
                 return response;
             }
 
-            function deleteProductFailed(response) {
+            function failed(response) {
                 return response;
             }
         }

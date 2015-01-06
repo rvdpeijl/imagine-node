@@ -26,8 +26,8 @@
         }
 
         function findAccounts() {
-            return Accounts.findAll().then(function(data) {
-                vm.accounts = data;
+            return Accounts.findAll().then(function(response) {
+                vm.accounts = response;
                 return vm.accounts;
             });
         }

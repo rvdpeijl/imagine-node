@@ -9,4 +9,4 @@ var categorySchema = new mongoose.Schema({
 });
 
 // Return model
-module.exports = restful.model('Categories', categorySchema);
+module.exports = restful.model('Category', categorySchema);

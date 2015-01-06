@@ -6,80 +6,74 @@
         .factory('Categories', Categories);
 
     /* @ngInject */
-    Categories.$inject = ['$http'];
+    Categories.$inject = ['$http', '$rootScope'];
 
-    function Categories($http) {
+    function Categories($http, $rootScope) {
         var service = {
-            getCategories: getCategories,
+            findAll: findAll,
             create: create,
-            destroy: destroy,
-            update: update,
-            rules: {
-                'name': {
-                    'required': {
-                        'value': true,
-                        'message': 'Name is required'
-                    }
-                }
-            }
+            save: save,
+            destroy: destroy
         };
+
         return service;
 
         ////////////////
 
-        function getCategories() {
+        function findAll() {
             return $http.get('/api/categories')
-                .then(getCategoriesComplete)
-                .catch(getCategoriesFailed);
+                .then(complete)
+                .catch(failed);
 
-            function getCategoriesComplete(response) {
+            function complete(response) {
+                $rootScope.categories = response.data;
                 return response.data;
             }
 
-            function getCategoriesFailed(error) {
+            function failed(error) {
                 console.log('Error: ' + error);
             }
         }
 
         function create(category) {
             return $http.post('/api/categories', category)
-                .then(createCategoryComplete)
-                .catch(createCategoryFailed);
+                .then(complete)
+                .catch(failed);
 
-            function createCategoryComplete(response) {
-                return response.data;
+            function complete(response) {
+                return response;
             }
 
-            function createCategoryFailed(error) {
-                console.log('Error: ' + error);
+            function failed(response) {
+                return response;
             }
         }
 
-        function update(category) {
+        function save(category) {
             return $http.put('/api/categories/' + category._id, category)
-                .then(updateCategoryComplete)
-                .catch(updateCategoryFailed);
+                .then(complete)
+                .catch(failed);
 
-            function updateCategoryComplete(response) {
-                return response.data;
+            function complete(response) {
+                return response;
             }
 
-            function updateCategoryFailed(error) {
-                console.log('Error: ' + error.data);
+            function failed(response) {
+                return response;
             }
         }
 
         function destroy(category) {
             return $http.delete('/api/categories/' + category._id)
-                .then(deleteCategoryComplete)
-                .catch(deleteCategoryFailed);
+                .then(complete)
+                .catch(failed);
 
-            function deleteCategoryComplete() {
-                return category;
+            function complete(response) {
+                return response;
             }
 
-            function deleteCategoryFailed(error) {
-                console.log('Error: ' + error.data);
+            function failed(response) {
+                return response;
             }
         }
     }

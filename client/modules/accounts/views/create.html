@@ -1,0 +1,19 @@
+<div>
+
+	<h2>New account:</h2>
+	
+	<form ng-submit="acc.createAccount(acc.account)">
+		<p>Username</p>
+		<input type="text" ng-model="acc.account.username">
+		<p>Password</p>
+		<input type="text" ng-model="acc.account.password">
+		<p>Group</p>
+		<select ng-model="acc.account.groupId">
+		    <option ng-repeat="group in acc.groups"
+		            value="{{group._id}}">
+		      {{group.name}}
+		    </option>
+		</select>
+		<button>REGISTER</button>
+	</form>
+</div>

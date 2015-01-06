@@ -1,0 +1,23 @@
+<div>
+
+	<h2>Categories</h2>
+
+	<table>
+		<tr align="left">
+			<th>Name</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="category in $root.categories">
+			<td width="100">
+				<span ng-hide="cat.editing.id === category._id">{{ category.name }}</span>
+				<input type="text" ng-model="category.name" ng-show="cat.editing.id === category._id">
+			</td>
+			<td>
+				<a href="#" ng-click="cat.editCategory(category)" ng-hide="cat.editing.id === category._id">edit</a>
+				<a href="#" ng-click="cat.saveCategory(category)" ng-show="cat.editing.id === category._id">save</a>
+			</td>
+			<td><a href="#" ng-click="cat.destroyCategory(category)">delete</a></td>
+		</tr>
+	</table>
+</div>

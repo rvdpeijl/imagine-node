@@ -6,7 +6,7 @@
         .factory('Groups', Groups);
 
     /* @ngInject */
-    function Groups($http) {
+    function Groups($http, $rootScope) {
         var service = {
             findAll: findAll,
             create: create,
@@ -17,58 +17,74 @@
 
         ////////////////
 
-        function findAll() {
-        	return $http.get('/api/groups')
-                .then(getGroupsComplete)
-                .catch(getGroupsFailed);
+        function findOne(id) {
+            return $http.get('/api/groups/' + id)
+                .then(complete)
+                .catch(failed);
 
-            function getGroupsComplete(response) {
+            function complete(response) {
                 return response.data;
             }
 
-            function getGroupsFailed(error) {
-                console.log('Error: ' + error);
+            function failed(response) {
+                return response;
+            }
+        }
+
+        function findAll() {
+        	return $http.get('/api/groups')
+                .then(complete)
+                .catch(failed);
+
+            function complete(response) {
+                $rootScope.groups = response.data;
+                return response.data;
+            }
+
+            function failed(response) {
+                return response;
             }
         }
 
         function create(group) {
             return $http.post('/api/groups', group)
-                .then(createGroupComplete)
-                .catch(createGroupFailed);
+                .then(complete)
+                .catch(failed);
 
-            function createGroupComplete(response) {
+            function complete(response) {
                 return response;
             }
 
-            function createGroupFailed(response) {
+            function failed(response) {
                 return response;
             }
         }
 
         function save(group) {
         	return $http.put('/api/groups/' + group._id, group)
-                .then(saveGroupComplete)
-                .catch(saveGroupFailed);
+                .then(complete)
+                .catch(failed);
 
-            function saveGroupComplete(response) {
+            function complete(response) {
+                $rootScope.$broadcast('permissionsChanged');
                 return response;
             }
 
-            function saveGroupFailed(response) {
+            function failed(response) {
                 return response;
             }
         }
 
         function destroy(group) {
             return $http.delete('/api/groups/' + group._id)
-                .then(destroyGroupComplete)
-                .catch(destroyGroupFailed);
+                .then(complete)
+                .catch(failed);
 
-            function destroyGroupComplete(response) {
+            function complete(response) {
                 return response;
             }
 
-            function destroyGroupFailed(response) {
+            function failed(response) {
                 return response;
             }
         }

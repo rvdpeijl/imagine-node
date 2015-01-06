@@ -1,0 +1,21 @@
+<div>
+	
+	<h2>New Group</h2>
+
+	<form ng-submit="groups.createGroup(groups.group)">
+		<h3>Name</h3>
+		<input type="text" ng-model="groups.group.name"> <br>
+		<h3>Permissions:</h3>
+		<table>
+			<tr align="left">
+				<th>Name</th>
+				<th>Enable</th>
+			</tr>
+			<tr ng-repeat="permission in $root.permissions">
+				<td>{{ permission.name }}</td>
+				<td><input type="checkbox" ng-model="groups.selectedPermissions.ids[permission._id]"></td>
+			</tr>
+		</table>
+		<button>Submit</button>
+	</form>
+</div>

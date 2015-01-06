@@ -1,0 +1,35 @@
+<div>
+	<h2>Storage</h2>
+
+	<table ng-if="$root.storages.length > 0">
+		<tr align="left">
+			<th>Name</th>
+			<th>Description</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="storage in $root.storages">
+			<td>
+				<span ng-hide="stor.editing.id === storage._id">{{ storage.name }}</span>
+				<input type="text" ng-model="storage.name" ng-show="stor.editing.id === storage._id">
+			</td>
+			<td>
+				<span ng-hide="stor.editing.id === storage._id">{{ storage.description }}</span>
+				<input type="text" ng-model="storage.description" ng-show="stor.editing.id === storage._id">
+			</td>
+			<td>
+				<a class="btn small" href="#" ng-click="stor.editStorage(storage)" ng-hide="stor.editing.id === storage._id">Edit</a>
+				<a class="btn small" href="#" ng-click="stor.saveStorage(storage)" ng-show="stor.editing.id === storage._id">Save</a>
+			</td>
+			<td>
+				<a class="btn small danger" href="#" ng-click="stor.destroyStorage(storage)">Delete</a>
+			</td>
+			<td>
+				<a class="btn small success" ui-sref="storage.add({ storageId: storage._id })">Add Products</a>
+			</td>
+		</tr>
+	</table>
+
+	<p ng-if="$root.storages.length === 0">There are no storages available.</p>
+</div>

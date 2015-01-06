@@ -4,9 +4,9 @@ var Account = require('../models/account');
 module.exports = function (app) {
 
   var auth = function(req, res, next){
-    // if (!req.isAuthenticated()) 
-    //   res.sendStatus(401);
-    // else
+    if (!req.isAuthenticated()) 
+      res.sendStatus(401);
+    else
       next();
   };
 

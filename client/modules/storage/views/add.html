@@ -1,0 +1,23 @@
+<div>
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Currently in storage</th>
+			<th>Amount</th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="product in $root.products">
+			<td>{{ product.name }}</td>
+			<td>{{ product.description }}</td>
+			<td>{{ stor.currentSupply(product._id) }}</td>
+			<td><input type="number" ng-model="product.amount"></td>
+			<td><a class="btn small success" href="#" ng-click="stor.addProduct(product)">Add</a></td>
+		</tr>
+	</table>
+
+	<div class="done">
+		<a class="btn" href="#" ng-click="stor.addProductsDone()">Done</a>
+	</div>
+
+</div>

@@ -4,43 +4,55 @@
 	<meta charset="UTF-8">
 	<base href="/">
 	<title>Hello World</title>
-	<link rel="stylesheet" href="/client/styles/main.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/client/styles/css/main.css">
 </head>
-<body ng-app="app">
+<body ng-app="app" ng-controller="AppController">
 	
-	<div class="wrapper">
-		<div class="popup" ng-show="$root.popup.visible">
-			<div class="panel">
-				<p class="message">{{ $root.popup.message }}</p>
-			</div>
+	<div class="popup" ng-show="$root.popup.visible">
+		<p class="message">{{ $root.popup.message }}</p>
+	</div>
+
+	<div class="content">
+
+		<div class="sidebar">
+			<ul>
+				<li ng-show="$root.account != null"><a href="/"><i class="fa fa-tachometer fa-fw"></i>&nbsp;Dashboard</a></li>
+				<li has-permission="view_products"><a href="/products"><i class="fa fa-shopping-cart fa-fw"></i>&nbsp;Products</a></li>
+				<li has-permission="view_categories"><a href="/categories"><i class="fa fa-list-ul fa-fw"></i>&nbsp;Categories</a></li>
+				<li has-permission="view_groups"><a href="/groups"><i class="fa fa-users fa-fw"></i>&nbsp;Groups</a></li>
+				<li has-permission="view_accounts"><a href="/accounts"><i class="fa fa-user fa-fw"></i>&nbsp;Accounts</a></li>
+				<li has-permission="view_storage"><a href="/storage"><i class="fa fa-cube fa-fw"></i>&nbsp;Storage</a></li>
+				<li ng-show="$root.account != null"><a href="#" ng-click="$root.logout()">Logout</a></li>
+				<li ng-show="$root.account == null"><a href="/login">Login</a></li>
+			</ul>
 		</div>
+
+		<div class="main">
+			<div ui-view></div>
+		</div>
+
 	</div>
-
-	<div>
-		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="/products">Products</a></li>
-			<li><a href="/categories">Categories</a></li>
-			<li><a href="/groups">Groups</a></li>
-			<li><a href="/accounts">Accounts</a></li>
-			<li><a href="#" ng-click="$root.logout()">Logout</a></li>
-		</ul>
-	</div>
-
-	<hr>
-
-	<div ng-view></div>
 
 	<script type="text/javascript" src="/client/bower_components/lodash/dist/lodash.js"></script>
+	<script type="text/javascript" src="/client/bower_components/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="/client/bower_components/angular/angular.js"></script>
 	<script type="text/javascript" src="/client/bower_components/angular-route/angular-route.js"></script>
 	<script type="text/javascript" src="/client/bower_components/angular-resource/angular-resource.js"></script>
+	<script type="text/javascript" src="/client/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
 	<script type="text/javascript" src="/client/modules/app.module.js"></script>
+	<script type="text/javascript" src="/client/modules/app.controller.js"></script>
 	<script type="text/javascript" src="/client/modules/app.routes.js"></script>
 
-	<!-- Home -->
-	<script type="text/javascript" src="/client/modules/home/home.controller.js"></script>
+	<!-- Logger -->
+	<script type="text/javascript" src="/client/modules/logger/logger.service.js"></script>
+	<!-- Bootstrapper -->
+	<script type="text/javascript" src="/client/modules/bootstrapper/bootstrapper.service.js"></script>
+
+	<!-- Dashboard -->
+	<script type="text/javascript" src="/client/modules/dashboard/dashboard.controller.js"></script>
 	<!-- Validator -->
 	<script type="text/javascript" src="/client/modules/validator/validator.service.js"></script>
 	<!-- Popup -->
@@ -59,8 +71,17 @@
 	<!-- Groups -->
 	<script type="text/javascript" src="/client/modules/groups/groups.service.js"></script>
 	<script type="text/javascript" src="/client/modules/groups/groups.controller.js"></script>
+	<!-- Permissions -->
+	<script type="text/javascript" src="/client/modules/permissions/permissions.service.js"></script>
+	<script type="text/javascript" src="/client/modules/permissions/permissions.controller.js"></script>
+	<script type="text/javascript" src="/client/modules/permissions/permissions.directive.js"></script>
+	<!-- Storage -->
+	<script type="text/javascript" src="/client/modules/storage/storage.service.js"></script>
+	<script type="text/javascript" src="/client/modules/storage/storage.controller.js"></script>
 	<!-- Login -->
 	<script type="text/javascript" src="/client/modules/login/login.controller.js"></script>
+	<!-- Click Outside -->
+	<script type="text/javascript" src="/client/modules/click-outside/click-outside.directive.js"></script>
 	
 </body>
 </html>

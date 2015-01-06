@@ -9,7 +9,8 @@ var groupSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		unique: true
-	}
+	},
+	permissions: Array
 });
 
 // Return model

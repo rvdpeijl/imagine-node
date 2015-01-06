@@ -6,7 +6,7 @@
         .factory('Accounts', Accounts);
 
     /* @ngInject */
-    function Accounts($http) {
+    function Accounts($http, $rootScope) {
         var service = {
             findAll: findAll,
             destroy: destroy,
@@ -19,56 +19,57 @@
 
         function findAll() {
             return $http.get('/api/accounts')
-                .then(getAccountsComplete)
-                .catch(getAccountsFailed);
+                .then(complete)
+                .catch(failed);
 
-            function getAccountsComplete(response) {
+            function complete(response) {
+                $rootScope.accounts = response.data;
                 return response.data;
             }
 
-            function getAccountsFailed(error) {
+            function failed(error) {
                 console.log('Error: ' + error.data);
             }
         }
 
         function create(account) {
             return $http.post('/register', account)
-                .then(createAccountComplete)
-                .catch(createAccountFailed);
+                .then(complete)
+                .catch(failed);
 
-            function createAccountComplete(response) {
+            function complete(response) {
                 return response;
             }
 
-            function createAccountFailed(response) {
+            function failed(response) {
                 return response;
             }
         }
 
         function save(account) {
             return $http.put('/api/accounts/' + account._id, account)
-                .then(saveAccountComplete)
-                .catch(saveAccountFailed);
+                .then(complete)
+                .catch(failed);
 
-            function saveAccountComplete(response) {
+            function complete(response) {
                 return response;
             }
 
-            function saveAccountFailed(response) {
+            function failed(response) {
                 return response;
             }
         }
 
         function destroy(account) {
             return $http.delete('/api/accounts/' + account._id)
-                .then(deleteAccountComplete)
-                .catch(deleteAccountFailed);
+                .then(complete)
+                .catch(failed);
 
-            function deleteAccountComplete() {
+            function complete() {
                 return { success: true, message: 'Deleted account with id'+account._id };
             }
 
-            function deleteAccountFailed(error) {
+            function failed(error) {
                 return { error: true, message: error };
             }
         }

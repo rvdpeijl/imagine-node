@@ -4,35 +4,51 @@
     angular
 	    .module('app')
 	    .config(config)
-	    .run(function($rootScope, $http, $location, Popup){
+	    .run(function($rootScope, $http, $location, Popup, Products, Categories, Accounts, Permissions, Groups){
+
 	    	$rootScope.popup = {
-	    		visible: false,
-	    		message: 'Loading...'
+	    		visible: true,
+	    		message: 'Loading application...'
 	    	};
+
+	    	Groups.findAll().then(function(response) {
+	    		$rootScope.groups = response;
+
+	    		Permissions.findAll().then(function(response) {
+		    		$rootScope.permissions = response;
+		    		$rootScope.popup = {
+			    		visible: false,
+			    		message: ''
+			    	};
+		    	});
+	    	});
 
 	    	// Logout function is available in any pages
 	    	$rootScope.logout = function(){
 	      		Popup.flash('Logged out');
 	      		$http.post('/logout');
 	      		$location.path('/login');
+	      		$rootScope.$broadcast('permissionsChanged');
+	      		$rootScope.account = null;
 	    	};
 	  	});
 
-	function config($routeProvider, $locationProvider, $httpProvider) {
+	function config($stateProvider, $locationProvider, $httpProvider) {
 
 		//================================================
 	    // Check if the user is connected
 	    //================================================
 	    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){
-	    	return true; // REMOVE WHEN OUT OF DEV
 			// Initialize a new promise
 			var deferred = $q.defer();
 
 			// Make an AJAX call to check if the user is logged in
-			$http.get('/loggedin').success(function(user){
+			$http.get('/loggedin').success(function(account){
 			// Authenticated
-				if (user !== '0')
+				if (account !== '0') {
+					$rootScope.account = account;
 					$timeout(deferred.resolve, 0);
+				}
 			// Not Authenticated
 				else {
 					$rootScope.popup.visible = true;
@@ -41,6 +57,7 @@
 						$timeout(function(){deferred.reject();}, 0);
 						$location.url('/login');
 						$rootScope.popup.visible = false;
+						$rootScope.account = null;
 					}, 1000);
 				}
 			});
@@ -71,51 +88,201 @@
 
 	    //================================================
 
-	    $routeProvider
-	    	.when('/', {
-	            templateUrl: 'modules/home/home.html',
-	            controller: 'HomeController',
-	            controllerAs: 'home',
+	    $stateProvider
+	    	/*=================================
+	    	=            Dashboard            =
+	    	=================================*/	    	
+	    	.state('dashboard', {
+	    		url: '/',
+	    		templateUrl: 'modules/dashboard/dashboard.html',
+	            controller: 'DashboardController as dash',
+	            resolve: {
+	            	loggedin: checkLoggedin,
+	            	groups: function(Groups) {
+	            		return Groups.findAll();
+	            	},
+	            	products: function(Products) {
+	            		return Products.findAll();
+	            	},
+	            	categories: function(Categories) {
+	            		return Categories.findAll();
+	            	},
+	            	accounts: function(Accounts) {
+	            		return Accounts.findAll();
+	            	},
+	            	permissions: function(Permissions) {
+	            		return Permissions.findAll();
+	            	},
+	            	storage: function(Storage) {
+	            		return Storage.findAll();
+	            	}
+	            }
+	        })
+	        /*================================
+	        =            Products            =
+	        ================================*/
+	        .state('products', {
+	        	url: '/products',
+	        	abstract: true,
+	        	templateUrl: 'modules/products/views/index.html',
+	            controller: 'ProductsController as prod',
 	            resolve: {
 	            	loggedin: checkLoggedin
 	            }
 	        })
-	        .when('/products', {
-	            templateUrl: 'modules/products/products.html',
-	            controller: 'ProductsController',
-	            controllerAs: 'prod',
+	        .state('products.overview', {
+	        	url: '',
+	        	templateUrl: 'modules/products/views/overview.html',
+				controller: 'ProductsController as prod',
 	            resolve: {
 	            	loggedin: checkLoggedin
 	            }
 	        })
-	        .when('/categories', {
-	            templateUrl: 'modules/categories/categories.html',
-	            controller: 'CategoriesController',
-	            controllerAs: 'cat',
+	        .state('products.create', {
+	        	url: '/create',
+	        	templateUrl: 'modules/products/views/create.html',
+				controller: 'ProductsController as prod',
 	            resolve: {
 	            	loggedin: checkLoggedin
 	            }
 	        })
-	        .when('/accounts', {
-	            templateUrl: 'modules/accounts/accounts.html',
-	            controller: 'AccountsController',
-	            controllerAs: 'acc',
+	        /*===============================
+	        =            Storage            =
+	        ===============================*/
+	        .state('storage', {
+	        	url: '/storage',
+	        	abstract: true,
+	            templateUrl: 'modules/storage/views/index.html',
+	            controller: 'StorageController as stor',
 	            resolve: {
 	            	loggedin: checkLoggedin
 	            }
 	        })
-	        .when('/groups', {
-	            templateUrl: 'modules/groups/groups.html',
-	            controller: 'GroupsController',
-	            controllerAs: 'groups',
+	        .state('storage.overview', {
+	        	url: '',
+	        	templateUrl: 'modules/storage/views/overview.html',
+				controller: 'StorageController as stor',
 	            resolve: {
 	            	loggedin: checkLoggedin
 	            }
 	        })
-	        .when('/login', {
-	            templateUrl: 'modules/login/login.html',
-	            controller: 'LoginController',
-	            controllerAs: 'login'
+	        .state('storage.create', {
+	        	url: '/create',
+	        	templateUrl: 'modules/storage/views/create.html',
+				controller: 'StorageController as stor',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        .state('storage.add', {
+	        	url: '/add/:storageId',
+	        	templateUrl: 'modules/storage/views/add.html',
+				controller: 'StorageController as stor',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        /*==================================
+	        =            Categories            =
+	        ==================================*/
+	        .state('categories', {
+	        	url: '/categories',
+	        	abstract: true,
+	        	templateUrl: 'modules/categories/views/index.html',
+	            controller: 'CategoriesController as cat',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        .state('categories.overview', {
+	        	url: '',
+	        	templateUrl: 'modules/categories/views/overview.html',
+				controller: 'CategoriesController as cat',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        .state('categories.create', {
+	        	url: '/create',
+	        	templateUrl: 'modules/categories/views/create.html',
+				controller: 'CategoriesController as cat',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        /*================================
+	        =            Accounts            =
+	        ================================*/
+	        .state('accounts', {
+	        	url: '/accounts',
+	        	abstract: true,
+	        	templateUrl: 'modules/accounts/views/index.html',
+	        	resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        .state('accounts.overview', {
+	        	url: '',
+	        	templateUrl: 'modules/accounts/views/overview.html',
+				controller: 'AccountsController as acc',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        .state('accounts.create', {
+	        	url: '/create',
+	        	templateUrl: 'modules/accounts/views/create.html',
+				controller: 'AccountsController as acc',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        /*==============================
+	        =            Groups            =
+	        ==============================*/
+	        .state('groups', {
+	        	url: '/groups',
+	        	abstract: true,
+	            templateUrl: 'modules/groups/views/index.html',
+	            controller: 'GroupsController as groups',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        .state('groups.overview', {
+	        	url: '',
+	        	templateUrl: 'modules/groups/views/overview.html',
+				controller: 'GroupsController as groups',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        .state('groups.create', {
+	        	url: '/create',
+	        	templateUrl: 'modules/groups/views/create.html',
+				controller: 'GroupsController as groups',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        /*===================================
+	        =            Permissions            =
+	        ===================================*/
+	        .state('permissions', {
+	        	url: '/permissions',
+	            templateUrl: 'modules/permissions/permissions.html',
+	            controller: 'PermissionsController as perm',
+	            resolve: {
+	            	loggedin: checkLoggedin
+	            }
+	        })
+	        /*=============================
+	        =            Login            =
+	        =============================*/
+	        .state('login', {
+	        	url: '/login',
+	        	templateUrl: 'modules/login/login.html',
+	            controller: 'LoginController as login'
 	        });
 
 	    $locationProvider.html5Mode(true);

@@ -10,6 +10,6 @@ var Account = new mongoose.Schema({
     groupId: String
 });
 
+// Plugin passport & return model
 Account.plugin(passportLocalMongoose);
-
 module.exports = mongoose.model('Account', Account);

@@ -1,0 +1,31 @@
+.sidebar {
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 170px;
+    padding: $pad;
+
+	background-color: $darkblue;
+
+	a {
+		color: $lightgray;
+		font-size: 12px;
+		// text-transform: uppercase;
+		&:hover {
+			color: $blue;
+		}
+	}
+
+	ul {
+		list-style: none;
+
+		li {
+			margin-bottom: 20px;
+
+			i {
+				margin-right: 10px;
+			}
+		}
+	}
+}

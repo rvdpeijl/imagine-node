@@ -6,9 +6,9 @@
         .controller('ProductsController', ProductsController);
 
     /* @ngInject */
-    ProductsController.$inject = ['Products', 'Categories', 'Validator', 'Popup'];
+    ProductsController.$inject = ['$rootScope', 'Products', 'Categories', 'Validator', 'Popup'];
 
-    function ProductsController(Products, Categories, Validator, Popup) {
+    function ProductsController($rootScope, Products, Categories, Validator, Popup) {
         /*jshint validthis: true */
         var vm = this;
         vm.products = [];
@@ -40,8 +40,8 @@
         }
 
         function activateCategories() {
-            return Categories.getCategories().then(function(data) {
-                vm.categories = data;
+            return Categories.findAll().then(function(response) {
+                vm.categories = response;
                 return vm.categories;
             });
         }

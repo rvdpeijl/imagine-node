@@ -1,0 +1,40 @@
+<div>
+
+	<h2>Products</h2>
+	
+	<table>
+		<tr align="left">
+			<th>Name</th>
+			<th>Description</th>
+			<th>Category</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="product in $root.products">
+			<td width="100">
+				<span ng-hide="prod.editing.id === product._id">{{ product.name }}</span>
+				<input type="text" ng-model="product.name" ng-show="prod.editing.id === product._id">
+			</td>
+			<td width="100">
+				<span ng-hide="prod.editing.id === product._id">{{ product.description }}</span>
+				<input type="text" ng-model="product.description" ng-show="prod.editing.id === product._id">
+			</td>
+			<td>
+				<div ng-show="category._id === product.categoryId && prod.editing.id !== product._id" ng-repeat="category in $root.categories">{{ category.name }}</div>
+
+			    <select ng-model="product.categoryId" ng-show="prod.editing.id === product._id">
+				    <option ng-selected="{{ category._id == product.categoryId}}"
+				            ng-repeat="category in $root.categories"
+				            value="{{category._id}}">
+				      {{category.name}}
+				    </option>
+				</select>
+			</td>
+			<td>
+				<a class="btn small" href="#" ng-click="prod.enableEdit(product)" ng-hide="prod.editing.id === product._id">edit</a>
+				<a class="btn small" href="#" ng-click="prod.saveProduct(product)" ng-show="prod.editing.id === product._id">save</a>
+			</td>
+			<td><a class="btn small danger" href="#" ng-click="prod.destroyProduct(product)">delete</a></td>
+		</tr>
+	</table>
+</div>

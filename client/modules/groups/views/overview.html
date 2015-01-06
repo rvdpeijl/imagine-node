@@ -1,0 +1,45 @@
+<div>
+	<h2>All Groups</h2>
+
+	<table>
+		<tr align="left">
+			<th>Name</th>
+			<th>Permissions</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="group in $root.groups">
+			<td width="100">
+				<span ng-hide="groups.editing.id === group._id">{{ group.name }}</span>
+				<input type="text" ng-model="group.name" ng-show="groups.editing.id === group._id">
+			</td>
+			<td>
+				<ul ng-hide="groups.editing.id === group._id">
+				    <li ng-repeat="permission in $root.permissions | orderBy: 'name'" ng-show="groups.hasPermission(group, permission)">
+				    	{{ permission.name }}
+				    </li>
+				</ul>
+
+				<table ng-show="groups.editing.id === group._id">
+					<tr>
+						<td>
+							<label ng-repeat="permission in $root.permissions | orderBy: 'name'">
+								<input
+									type="checkbox"
+									name="permission.slur"
+									ng-model="groups.editingPermissions.ids[permission._id]"> 
+							  {{permission.name}}<br>
+							</label> 
+						</td>
+					</tr>
+				</table>
+				<hr>
+			</td>
+			<td has-permission="edit_group">
+				<a href="#" ng-click="groups.editGroup(group)" ng-hide="groups.editing.id === group._id">edit</a>
+				<a href="#" ng-click="groups.saveGroup(group)" ng-show="groups.editing.id === group._id">save</a>
+			</td>
+			<td has-permission="delete_group"><a href="#" ng-click="groups.destroyGroup(group)">delete</a></td>
+		</tr>
+	</table>
+</div>

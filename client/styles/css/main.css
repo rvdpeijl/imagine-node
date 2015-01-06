@@ -1,0 +1,205 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #59ABE3;
+  color: #fff;
+  margin-bottom: 5px;
+  display: inline-block;
+  border-radius: 2px;
+  font-size: 12px;
+  text-align: center;
+  border-bottom: 2px solid #43a0df;
+}
+.btn:hover {
+  background-color: #82C2ED;
+  border-bottom: 2px solid #6cb7ea;
+  color: #fff;
+}
+.btn.small {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.btn.danger {
+  background-color: #D91E18;
+  border-bottom: 2px solid #c21b15;
+}
+.btn.danger:hover {
+  background-color: #F55853;
+  border-bottom: 2px solid #f4413b;
+}
+.btn.success {
+  background-color: #26A65B;
+  border-bottom: 2px solid #219150;
+}
+.btn.success:hover {
+  background-color: #43C478;
+  border-bottom: 2px solid #39b56c;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #ECF0F1;
+  color: #333;
+  font-size: 14px;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #ECF0F1;
+}
+
+.main {
+  position: relative;
+  margin-left: 170px;
+  padding: 20px;
+}
+
+a {
+  color: #59ABE3;
+  text-decoration: none;
+}
+a:hover {
+  color: #3c4a55;
+}
+
+input {
+  border-radius: 2px;
+  border: 1px solid #6C7A89;
+}
+input[type="text"] {
+  padding: 3px;
+}
+input[type="number"] {
+  width: 50px;
+  padding: 3px;
+}
+
+table {
+  background-color: #fff;
+  width: 100%;
+  border-collapse: collapse;
+  border-bottom: 2px solid #E4E9EB;
+}
+table th {
+  background-color: #82C2ED !important;
+  color: #fff;
+}
+table tr:hover {
+  background-color: #E4E9EB;
+}
+table th, table td {
+  vertical-align: middle;
+  border: none;
+  padding: 5px;
+  text-align: left;
+  min-width: 150px;
+  max-width: 200px;
+}
+table td {
+  border: none;
+}
+table td .btn {
+  width: 100%;
+  height: 40px;
+  padding: 10px 0px !important;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 170px;
+  padding: 20px;
+  background-color: #3c4a55;
+}
+.sidebar a {
+  color: #ECF0F1;
+  font-size: 12px;
+}
+.sidebar a:hover {
+  color: #59ABE3;
+}
+.sidebar ul {
+  list-style: none;
+}
+.sidebar ul li {
+  margin-bottom: 20px;
+}
+.sidebar ul li i {
+  margin-right: 10px;
+}
+
+.popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: solid 1px #6C7A89;
+  background-color: white;
+  padding: 30px;
+  border-radius: 2px;
+  font-size: 12px;
+  width: 250px;
+  z-index: 100;
+}
+.popup.success {
+  background-color: #26A65B;
+}
+.popup.error {
+  background-color: #F55853;
+}
+.popup .message {
+  text-align: center;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.overlay .panel {
+  max-width: 700px;
+  height: 100%;
+  background-color: #ECF0F1;
+  border-radius: 2px;
+  border: 1px solid #fff;
+  margin: 20px auto;
+}
+.overlay .panel .content {
+  padding: 20px;
+}
+.overlay .panel .content .done {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background-color: #ECF0F1;
+}
+.overlay .panel .content .done .btn {
+  width: 200px;
+  display: block;
+  margin: auto;
+}
+
+/*# sourceMappingURL=main.css.map */

@@ -4,9 +4,9 @@ var express 		= require('express'),
 	mongoose		= require('mongoose'),
 	bodyParser 		= require('body-parser'),
 	morgan			= require('morgan'),
-	session			= require('express-session'),
 	passport		= require('passport'),
-	LocalStrategy 	= require('passport-local').Strategy;
+	LocalStrategy 	= require('passport-local').Strategy,
+	session			= require('express-session');
 
 // MongoDB
 mongoose.connect('mongodb://localhost/imaginedb');
@@ -15,9 +15,9 @@ mongoose.connect('mongodb://localhost/imaginedb');
 var app = express();
 
 app.use(session({
-  secret: 'kaolofrikandel',
-  resave: false,
-  saveUninitialized: true
+	secret: 'kaolofrikandel',
+	resave: false,
+	saveUninitialized: true
 }));
 
 app.use(bodyParser.urlencoded({ extended: true }));

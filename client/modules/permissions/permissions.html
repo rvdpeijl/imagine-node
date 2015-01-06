@@ -1,0 +1,33 @@
+<h2>Permissions</h2>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Slur</th>
+		<th></th>
+		<th></th>
+	</tr>
+	<tr ng-repeat="permission in perm.permissions">
+		<td>
+			<span ng-hide="perm.editing.id === permission._id">{{ permission.name }}</span>
+			<input type="text" ng-model="permission.name" ng-show="perm.editing.id === permission._id">
+		</td>
+		<td>
+			<span ng-hide="perm.editing.id === permission._id">{{ permission.slur }}</span>
+			<input type="text" ng-model="permission.slur" ng-show="perm.editing.id === permission._id">
+		</td>
+		<td>
+			<a href="#" ng-click="perm.editPermission(permission)" ng-hide="perm.editing.id === permission._id">edit</a>
+			<a href="#" ng-click="perm.savePermission(permission)" ng-show="perm.editing.id === permission._id">save</a>
+		</td>
+		<td><a href="#" ng-click="perm.destroyPermission(permission)">delete</a></td>
+	</tr>
+</table>
+
+<form ng-submit="perm.createPermission(perm.permission)">
+	<p>Name</p>
+	<input type="text" ng-model="perm.permission.name">
+	<p>Slur</p>
+	<input type="text" ng-model="perm.permission.slur">
+	<button>Submit</button>
+</form>
